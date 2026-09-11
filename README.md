@@ -252,10 +252,10 @@ de threshold, técnicas de explicabilidade e validação temporal do modelo.
 ├── notebooks/ 
 │		 ├── 00 credit_card_PosTech_fase2_grupoEllen.ipynb ← ORIGINAL COMPLETO
 │        │
-│ 		 ├── 01_eda.ipynb 
-│ 		 ├── 02_preprocessamento.ipynb 
-│		 ├── 03_modelagem.ipynb │ 
-		 ├── 04_avaliacao.ipynb 
+│ 		 ├── 01_eda.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
+│ 		 ├── 02_preprocessamento.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
+│		 ├── 03_modelagem.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA 
+		 ├── 04_avaliacao.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
 		 │ └── README.md 
 │ 
 ├── results/ 
