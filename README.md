@@ -88,9 +88,10 @@ A base final utilizada na modelagem apresentou:
 | Período / versão | Dataset disponibilizado no Kaggle|
 | Licença de uso | CC0 — Public Domain |
 
-Descrição das variáveis:
+### Descrição das variáveis:
 
 | Variável              | Tipo             | Descrição                                           |
+|-----------------------|------------------| ----------------------------------------------------|
 |AGE                	|Numérica          |Idade calculada a partir de DAYS_BIRTH|
 |AMT_INCOME_TOTAL_LOG 	|Numérica          |Renda anual transformada por log1p|
 |YEARS_EMPLOYED         |Numérica          |Tempo de emprego em anos|
@@ -175,6 +176,7 @@ exatamente os números da seção 5.
 | Decision Tree       | 0.56     | 0.59     | 0.75   | 0.66| 0.55    | 0.60   |
 | Random Forest       | 0.69     | 0.73     | 0.72   | 0.72| 0.74    | 0.77   |
 | HistGradientBoosting| 0.61     | 0.60     | 0.74   | 0.73| 0.62    | 0.67   |
+
 **Modelo escolhido:** Considerando o desbalanceamento da variável TARGET, a escolha do modelo 
 não foi baseada apenas na acurácia. Foram considerados principalmente Precision, Recall, 
 F1-score, ROC-AUC e PR-AUC para avaliar a capacidade de identificação dos clientes classificados
