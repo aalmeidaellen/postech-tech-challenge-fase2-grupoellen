@@ -67,51 +67,93 @@ PELO MENOS 30 MESES COM STATUS = 0, de 1 a 29 dias de atraso (recorrência de at
 
 Caso nenhuma dessas condições seja atendida, o cliente recebe TARGET = 0.
 
-Os valores C (quitado) e X(Sem informação) do histórico de crédito foram convertidos para 0, 
-juntamente com o STATUS = 0. Portanto, a condição MESES_STATUS_0 >= 30 considera os registros 
-convertidos para STATUS_NUM = 0.
+Os valores C (quitado) e X(Sem informação) do histórico de crédito foram convertidos para -1, 
+para tratá-los como número e desconsiderá-lo na regra.
 
 A base final utilizada na modelagem apresentou:
 
 36.457 clientes
 51 variáveis preditoras
-65,81% de clientes na classe 0
-34,19% de clientes na classe 1
+91,65% de clientes na classe 0
+8,34% de clientes na classe 1
 
 ### Dataset
 
 | Campo | Valor |
 |---|---|
-| Fonte | <!-- PREENCHER: URL --> |
-| Linhas × colunas | <!-- PREENCHER --> |
-| Período / versão | <!-- PREENCHER --> |
-| Licença de uso | <!-- PREENCHER --> |
+| Fonte | Kaggle — Credit Card Approval Prediction - https://www.kaggle.com/datasets/rikdifos/credit-card-approval-prediction  |
+|Arquivos|application_record.csv e credit_record.csv |
+| Linhas × colunas | application_record.csv 438.557 linhas × 18 colunas |
+| Linhas × colunas | credit_record.csv     1.048.575 linhas × 3 colunas |
+| Período / versão | Dataset disponibilizado no Kaggle|
+| Licença de uso | CC0 — Public Domain |
 
 Descrição das variáveis:
 
 | Variável | Tipo | Descrição |
-|---|---|---|
-| | | |
-
+|AGE|	|Numérica|	|Idade calculada a partir de DAYS_BIRTH|
+|AMT_INCOME_TOTAL_LOG|	|Numérica|	|Renda anual transformada por log1p|
+|YEARS_EMPLOYED|	|Numérica|	|Tempo de emprego em anos|
+|CNT_CHILDREN|	|Numérica|	|Quantidade de filhos|
+|FLAG_OWN_CAR|	|Binária|	|Indica posse de veículo|
+|FLAG_OWN_REALTY|	|Binária|	|Indica posse de imóvel|
+|FLAG_PHONE|	|Binária|	|Indica existência de telefone|
+|FLAG_WORK_PHONE|	|Binária|	|Indica existência de telefone profissional|
+|FLAG_EMAIL	|Binária|	|Indica existência de e-mail|
+|CODE_GENDER|	|Categórica|	|Gênero|
+|NAME_INCOME_TYPE|	|Categórica|	|Tipo de renda|
+|NAME_EDUCATION_TYPE|	|Categórica|	|Escolaridade|
+|NAME_FAMILY_STATUS|	|Categórica|	|Estado civil|
+|NAME_HOUSING_TYPE|	|Categórica|	|Tipo de moradia|
+|OCCUPATION_TYPE|	|Categórica|	|Tipo de ocupação|
+|TARGET||Binária|	|Indica risco de crédito|
 ---
 
 ## 4. Como reproduzir
 
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd <NOME_DO_REPOSITORIO>
+```4.1 Clonar o repositório
+git clone https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen.git
+cd postech-tech-challenge-fase2-grupoellen
+4.2 Criar o ambiente virtual
 
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+No Windows:
 
-pip install -r requirements.txt
-jupyter notebook
+py -m venv .venv
+.venv\Scripts\activate
+4.3 Instalar as dependências
+py -m pip install -r requirements.txt
+4.4 Executar o pipeline
+
+Os dados brutos devem estar em:
+
+data/raw/
+├── application_record.csv
+└── credit_record.csv
+
+O pipeline pode ser executado diretamente com:
+
+py src/pipeline.py
+
+O arquivo src/pipeline.py realiza:
+
+carregamento dos dados;
+criação da variável TARGET;
+tratamento das variáveis;
+criação de AGE e YEARS_EMPLOYED;
+tratamento da variável OCCUPATION_TYPE;
+transformação das variáveis categóricas;
+transformação logarítmica da renda;
+remoção das variáveis não utilizadas;
+divisão entre treino e teste;
+treinamento do Random Forest;
+avaliação do modelo;
+cálculo da importância das variáveis.
 ```
 
 Baixe o dataset e coloque o arquivo bruto em `data/raw/` (os dados **não** são versionados —
 veja `data/README.md`).
 
-Depois execute os notebooks nesta ordem:
+Depois execute os notebooks nesta ordem (ou o executar o pipeline descrito acima):
 
 | # | Notebook | O que faz |
 |---|---|---|
@@ -130,14 +172,31 @@ exatamente os números da seção 5.
 
 | Modelo | Acurácia | Precisão | Recall | F1 | AUC-ROC |
 |---|---|---|---|---|---|
-| <!-- PREENCHER --> | | | | | |
-| | | | | | |
+| Logistic Regression | 0.57  | 0.09| 0.48| 0.15| 0.53 |
+| Decision Tree       | 0.56  | 0.09| 0.51| 0.16| 0.055|
+| Random Forest       | 0.86  | 0.29| 0.45| 0.35| 0.76 |
+| HistGradientBoosting| 0.91  | 0.50| 0.00| 0.00| 0.64 |
+**Modelo escolhido:** O Random Forest apresentou o melhor 
+equilíbrio geral entre capacidade de discriminação e identificação da classe de maior risco.
 
-**Modelo escolhido:** <!-- PREENCHER --> — <!-- PREENCHER: por quê. -->
+**Métricas priorizadas:** 
+maior AUC-ROC;
+maior PR-AUC;
+melhor F1-score entre os modelos avaliados;
+Recall relevante para a identificação de clientes de maior risco.
 
-**Métricas priorizadas:** <!-- PREENCHER: justifique a escolha considerando o
-     desbalanceamento de classes e o custo de cada tipo de erro no contexto do negócio. -->
+O modelo utilizado no pipeline possui:
 
+n_estimators = 300
+class_weight = balanced
+random_state = 42
+n_jobs = -1
+
+Threshold
+
+Embora o threshold padrão seja 0,50, foi adotado o threshold de 0,10 para a decisão final.
+
+Essa escolha foi feita porque o objetivo de negócio prioriza a identificação de uma parcela maior dos clientes classificados como de maior risco.
 ---
 
 ## 6. Principais conclusões
