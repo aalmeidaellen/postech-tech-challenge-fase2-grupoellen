@@ -57,7 +57,7 @@ equilibrar dois objetivos:
 Foi criada uma variável binária denominada TARGET.
 
 A classe TARGET = 1 representa clientes classificados como de maior risco, de acordo com 
-a seguinte regra de negócio, considerando um período de 61 meses:
+a seguinte regra de negócio, ao longo do período de histórico disponível para cada cliente:
 
 PELO MENOS 2 MESES COM STATUS = 1: de 30 a 59 dias de atraso (recorrência de atraso média) OU
 
@@ -170,7 +170,7 @@ exatamente os números da seção 5.
 
 ## 5. Resultados
 
-| Modelo              | Acurácia | Precisão | Recall | F1  | AUC-ROC | PR-ROC |
+| Modelo              | Acurácia | Precisão | Recall | F1  | AUC-ROC | PR-AUC |
 |---------------------|----------|----------|--------|-----|---------|--------|
 | Logistic Regression | 0.53     | 0.59     | 0.54   | 0.57| 0.54    | 0.60   |
 | Decision Tree       | 0.56     | 0.59     | 0.75   | 0.66| 0.55    | 0.60   |
@@ -209,8 +209,9 @@ Essa escolha foi feita porque o objetivo de negócio prioriza a identificação 
 1 - Modelo Final: O Random Forest foi selecionado como modelo final, apresentando o melhor equilíbrio 
 entre discriminação, precisão e desempenho sobre a classe minoritária, com destaque para a PR-AUC.
 
-2 - Threshold Final: O threshold de 0,10 foi adotado para priorizar a identificação de clientes de maior 
-risco, alcançando Recall de 96,5%, mesmo com maior ocorrência de falsos positivos.
+2 - Threshold Final: Com o threshold reduzido para 0,10, a regra de classificação passou a identificar 
+96,5% dos clientes pertencentes à classe de maior risco, aumentando o Recall em relação ao threshold 
+padrão mesmo com maior ocorrência de falsos positivos.
 
 3 - A escolha do threshold reflete uma decisão de negócio, na qual é preferível realizar 
 análises adicionais de clientes classificados preventivamente como risco do que deixar 
@@ -225,8 +226,8 @@ e da estabilidade do solicitante.
 
 A variável TARGET foi construída a partir de uma regra de negócio definida neste projeto e 
 pode ser aprimorada em estudos futuros.
-Os registros C e X foram convertidos para STATUS_NUM = -1, para viabilizar o tratamento numérico, 
-sendo considerado redutor no percentual do status >1 mas apenas do teste da regra de negócio 1
+Os registros C e X foram convertidos para STATUS_NUM = -1, para viabilizar o tratamento numérico
+e não contam na regra de atraso da regra de negócio escolhida, regra 3.
 A utilização de 60 para YEARS_EMPLOYED representa uma decisão de tratamento dos registros associados 
 a pensionistas e pode ser refinada com uma variável específica para essa condição.
 O modelo Random Forest possui menor interpretabilidade que modelos lineares, o que pode ser relevante 
@@ -249,7 +250,8 @@ de threshold, técnicas de explicabilidade e validação temporal do modelo.
 │ 	└── apresentação executiva 
 │ 
 ├── notebooks/ 
-│		 ├── 00 credit_card_PosTech_fase2_grupoEllen.ipynb 
+│		 ├── 00 credit_card_PosTech_fase2_grupoEllen.ipynb ← ORIGINAL COMPLETO
+│        │
 │ 		 ├── 01_eda.ipynb 
 │ 		 ├── 02_preprocessamento.ipynb 
 │		 ├── 03_modelagem.ipynb │ 
