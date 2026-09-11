@@ -63,7 +63,7 @@ PELO MENOS 2 MESES COM STATUS = 1: de 30 a 59 dias de atraso (recorrência de at
 
 PELO MENOS 1 MES COM STATUS >= 2, 60 dias ou mais de atraso o(gravidade do atraso) OU
 
-PELO MENOS 30 MESES COM STATUS = 0, de 1 a 29 dias de atraso (recorrência de atraso moderada)
+PELO MENOS 6 MESES COM STATUS = 0, de 1 a 29 dias de atraso (recorrência de atraso moderada)
 
 Caso nenhuma dessas condições seja atendida, o cliente recebe TARGET = 0.
 
@@ -74,8 +74,8 @@ A base final utilizada na modelagem apresentou:
 
 36.457 clientes
 51 variáveis preditoras
-91,65% de clientes na classe 0
-8,34% de clientes na classe 1
+57,74% de clientes na classe 0
+42,25% de clientes na classe 1
 
 ### Dataset
 
@@ -90,39 +90,38 @@ A base final utilizada na modelagem apresentou:
 
 Descrição das variáveis:
 
-| Variável | Tipo | Descrição |
-|AGE|	|Numérica|	|Idade calculada a partir de DAYS_BIRTH|
-|AMT_INCOME_TOTAL_LOG|	|Numérica|	|Renda anual transformada por log1p|
-|YEARS_EMPLOYED|	|Numérica|	|Tempo de emprego em anos|
-|CNT_CHILDREN|	|Numérica|	|Quantidade de filhos|
-|FLAG_OWN_CAR|	|Binária|	|Indica posse de veículo|
-|FLAG_OWN_REALTY|	|Binária|	|Indica posse de imóvel|
-|FLAG_PHONE|	|Binária|	|Indica existência de telefone|
-|FLAG_WORK_PHONE|	|Binária|	|Indica existência de telefone profissional|
-|FLAG_EMAIL	|Binária|	|Indica existência de e-mail|
-|CODE_GENDER|	|Categórica|	|Gênero|
-|NAME_INCOME_TYPE|	|Categórica|	|Tipo de renda|
-|NAME_EDUCATION_TYPE|	|Categórica|	|Escolaridade|
-|NAME_FAMILY_STATUS|	|Categórica|	|Estado civil|
-|NAME_HOUSING_TYPE|	|Categórica|	|Tipo de moradia|
-|OCCUPATION_TYPE|	|Categórica|	|Tipo de ocupação|
-|TARGET||Binária|	|Indica risco de crédito|
+| Variável              | Tipo             | Descrição                                           |
+|AGE                	|Numérica          |Idade calculada a partir de DAYS_BIRTH|
+|AMT_INCOME_TOTAL_LOG 	|Numérica          |Renda anual transformada por log1p|
+|YEARS_EMPLOYED         |Numérica          |Tempo de emprego em anos|
+|CNT_CHILDREN           |Numérica          |Quantidade de filhos|
+|FLAG_OWN_CAR           |Binária           |Indica posse de veículo|
+|FLAG_OWN_REALTY        |Binária           |Indica posse de imóvel|
+|FLAG_PHONE             |Binária           |Indica existência de telefone|
+|FLAG_WORK_PHONE        |Binária           |Indica existência de telefone profissional|
+|FLAG_EMAIL	            |Binária           |Indica existência de e-mail|
+|CODE_GENDER            |Categórica        |Gênero|
+|NAME_INCOME_TYPE       |Categórica        |Tipo de renda|
+|NAME_EDUCATION_TYPE    |Categórica        |Escolaridade|
+|NAME_FAMILY_STATUS     |Categórica        |Estado civil|
+|NAME_HOUSING_TYPE      |Categórica        |Tipo de moradia|
+|OCCUPATION_TYPE        |Categórica        |Tipo de ocupação|
+|TARGET|                |Binária           |Indica risco de crédito|
 ---
 
 ## 4. Como reproduzir
 
-```4.1 Clonar o repositório
-git clone https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen.git
-cd postech-tech-challenge-fase2-grupoellen
-4.2 Criar o ambiente virtual
+```Clonar o repositório git clone
+ https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen
+
 
 No Windows:
 
 py -m venv .venv
 .venv\Scripts\activate
-4.3 Instalar as dependências
+nstalar as dependências
 py -m pip install -r requirements.txt
-4.4 Executar o pipeline
+Executar o pipeline
 
 Os dados brutos devem estar em:
 
@@ -170,14 +169,18 @@ exatamente os números da seção 5.
 
 ## 5. Resultados
 
-| Modelo | Acurácia | Precisão | Recall | F1 | AUC-ROC |
-|---|---|---|---|---|---|
-| Logistic Regression | 0.57  | 0.09| 0.48| 0.15| 0.53 |
-| Decision Tree       | 0.56  | 0.09| 0.51| 0.16| 0.055|
-| Random Forest       | 0.86  | 0.29| 0.45| 0.35| 0.76 |
-| HistGradientBoosting| 0.91  | 0.50| 0.00| 0.00| 0.64 |
-**Modelo escolhido:** O Random Forest apresentou o melhor 
-equilíbrio geral entre capacidade de discriminação e identificação da classe de maior risco.
+| Modelo              | Acurácia | Precisão | Recall | F1  | AUC-ROC | PR-ROC |
+|---------------------|----------|----------|--------|-----|---------|--------|
+| Logistic Regression | 0.53     | 0.59     | 0.54   | 0.57| 0.54    | 0.60   |
+| Decision Tree       | 0.56     | 0.59     | 0.75   | 0.66| 0.55    | 0.60   |
+| Random Forest       | 0.69     | 0.73     | 0.72   | 0.72| 0.74    | 0.77   |
+| HistGradientBoosting| 0.61     | 0.60     | 0.74   | 0.73| 0.62    | 0.67   |
+**Modelo escolhido:** Considerando o desbalanceamento da variável TARGET, a escolha do modelo 
+não foi baseada apenas na acurácia. Foram considerados principalmente Precision, Recall, 
+F1-score, ROC-AUC e PR-AUC para avaliar a capacidade de identificação dos clientes classificados
+como de maior risco.
+Entre os modelos avaliados, o Random Forest apresentou o melhor desempenho geral, com 
+ROC-AUC de 0,74 e PR-AUC de 0,77, além de Precision de 0,73, Recall de 0,72 e F1-score de 0,72.
 
 **Métricas priorizadas:** 
 maior AUC-ROC;
@@ -201,27 +204,69 @@ Essa escolha foi feita porque o objetivo de negócio prioriza a identificação 
 
 ## 6. Principais conclusões
 
-<!-- PREENCHER: 3 a 5 conclusões em linguagem de negócio.
-     Inclua quais variáveis mais influenciam o resultado e o que isso significa
-     na prática para quem vai usar o modelo. -->
+1 - Modelo Final: O Random Forest foi selecionado como modelo final, apresentando o melhor equilíbrio 
+entre discriminação, precisão e desempenho sobre a classe minoritária, com destaque para a PR-AUC.
 
-1.
-2.
-3.
+2 - Threshold Final: O threshold de 0,10 foi adotado para priorizar a identificação de clientes de maior 
+risco, alcançando Recall de 96,5%, mesmo com maior ocorrência de falsos positivos.
+
+3 - A escolha do threshold reflete uma decisão de negócio, na qual é preferível realizar 
+análises adicionais de clientes classificados preventivamente como risco do que deixar 
+passar clientes potencialmente inadimplentes.
+
+4 - As variáveis mais relevantes foram idade, renda e tempo de emprego, que juntas representam 
+aproximadamente 55% da importância preditiva do modelo, indicando maior influência do perfil socioeconômico 
+e da estabilidade do solicitante.
+
 
 ### Limitações e próximos passos
 
-<!-- PREENCHER -->
+A variável TARGET foi construída a partir de uma regra de negócio definida neste projeto e 
+pode ser aprimorada em estudos futuros.
+Os registros C e X foram convertidos para STATUS_NUM = -1, para viabilizar o tratamento numérico, 
+sendo considerado redutor no percentual do status >1 mas apenas do teste da regra de negócio 1
+A utilização de 60 para YEARS_EMPLOYED representa uma decisão de tratamento dos registros associados 
+a pensionistas e pode ser refinada com uma variável específica para essa condição.
+O modelo Random Forest possui menor interpretabilidade que modelos lineares, o que pode ser relevante 
+em aplicações reais de crédito.
+Como próximos passos, recomenda-se avaliar calibração das probabilidades, diferentes estratégias 
+de threshold, técnicas de explicabilidade e validação temporal do modelo.
 
 ---
 
 ## 7. Estrutura do repositório
 
 ```
-.
-├── data/          dados brutos (raw) e tratados (processed) — não versionados
-├── notebooks/     análise em ordem numerada
-└── docs/          apresentação executiva
+├── data/ 
+│		├── raw/ 
+		│ │ ├── application_record.csv 
+		│ │ └── credit_record.csv 
+		│ └── processed/ 
+		│ 
+├── docs/ 
+│ 	└── apresentação executiva 
+│ 
+├── notebooks/ 
+│		 ├── 00 credit_card_PosTech_fase2_grupoEllen.ipynb 
+│ 		 ├── 01_eda.ipynb 
+│ 		 ├── 02_preprocessamento.ipynb 
+│		 ├── 03_modelagem.ipynb │ 
+		 ├── 04_avaliacao.ipynb 
+		 │ └── README.md 
+│ 
+├── results/ 
+│ 
+├── src/ 
+│ 	└── pipeline.py 
+│ 
+├── submissao/ 
+│ 
+├── .gitignore 
+├── CHECKLIST.md
+ ├── ESTRUTURA.md 
+ ├── LICENSE 
+ ├── README.md 
+ └── requirements.txt
 ```
 
 Detalhes e convenções em [`ESTRUTURA.md`](ESTRUTURA.md).
@@ -231,4 +276,13 @@ Antes de enviar, percorra o [`CHECKLIST.md`](CHECKLIST.md).
 
 ## 8. Tecnologias
 
-<!-- PREENCHER: Python 3.11, pandas, scikit-learn, ... -->
+Python 3.11
+NumPy 2.4.6
+Pandas 3.0.5
+Scikit-learn 1.9.0
+Random Forest
+Logistic Regression
+Decision Tree
+HistGradientBoosting
+Jupyter Notebook
+Git e GitHub
