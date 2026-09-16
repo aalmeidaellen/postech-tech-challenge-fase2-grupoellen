@@ -28,8 +28,8 @@
 | Item | Link |
 |---|---|
 | Repositório | https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen |
-| Vídeo executivo (≤ 5 min) | <!-- PREENCHER: YouTube não listado / Drive com acesso liberado --> |
-| Apresentação | <!-- PREENCHER: link do arquivo em `docs/` ou Drive --> |
+| Vídeo executivo (≤ 5 min) | https://drive.google.com/drive/folders/1E5fRmZG7Oc0N3nUKiMmFi8IJ821e9cA7?usp=sharing |
+| Apresentação | https://drive.google.com/drive/folders/1E5fRmZG7Oc0N3nUKiMmFi8IJ821e9cA7?usp=sharing |
 
 > ⚠️ Repositório privado ou inacessível **zera** toda a Dimensão 1 da rúbrica.
 > Confira o acesso em uma janela anônima antes de enviar.
