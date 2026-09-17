@@ -1,11 +1,5 @@
 # Tech Challenge — Fase 2 | POSTECH Data Analytics
 
-> **INSTRUÇÕES:** este README é um template. Substitua **todos** os blocos marcados com
-> `<!-- PREENCHER -->` e apague as linhas de instrução antes de submeter.
-> O README vale **3 pontos** na Dimensão 1 da rúbrica.
-
----
-
 ## 1. Identificação
 
 | Campo | Valor |
@@ -29,7 +23,7 @@
 |---|---|
 | Repositório | https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen |
 | Vídeo executivo (≤ 5 min) | https://drive.google.com/file/d/1mJN03B-PZMgLuPVpTfhf3BGdrs7gcFvz/view?usp=drive_link |
-| Apresentação | https://docs.google.com/presentation/d/17MHRfgp2IH3mUei9H3brGHqIzm90uBT4/edit?usp=drive_link&ouid=101967518017721973819&rtpof=true&sd=true |
+| Apresentação | https://drive.google.com/file/d/1ty-xnqsklwHcvDglVEkeclACC5HDVaeO/view?usp=drive_link |
 
 > ⚠️ Repositório privado ou inacessível **zera** toda a Dimensão 1 da rúbrica.
 > Confira o acesso em uma janela anônima antes de enviar.
@@ -255,8 +249,7 @@ de threshold, técnicas de explicabilidade e validação temporal do modelo.
 │ 		 ├── 01_eda.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
 │ 		 ├── 02_preprocessamento.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
 │		 ├── 03_modelagem.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA 
-		 ├── 04_avaliacao.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
-		 │ └── README.md 
+│		 ├── 04_avaliacao.ipynb ← PARTICIONAMENTO DO ORIGINAL COMPLETO PARA FINS DE ENTREGA
 │ 
 ├── results/ 
 │ 
