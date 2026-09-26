@@ -266,8 +266,8 @@ de threshold, técnicas de explicabilidade e validação temporal do modelo.
  └── requirements.txt
 ```
 
-Detalhes e convenções em [`ESTRUTURA.md`](ESTRUTURA.md).
-Antes de enviar, percorra o [`CHECKLIST.md`](CHECKLIST.md).
+Detalhes e convenções em  [`https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen/blob/main/ESTRUTURA.md`](ESTRUTURA.md).
+Antes de enviar, percorra o [`https://github.com/aalmeidaellen/postech-tech-challenge-fase2-grupoellen/blob/main/CHECKLIST.md`](CHECKLIST.md).
 
 ---
 
